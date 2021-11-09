@@ -2,18 +2,33 @@ using UnityEngine;
 
 public class TileInteractManager : MonoBehaviour
 {
+    public GameObject glowObject;
+    public Vector2 boardPosition;
+
+    private PlayerMoveAdvisor moveAdvisor;
+
+    public void Start()
+    {
+        moveAdvisor = gameObject.transform.parent.GetComponent<PlayerMoveAdvisor>();
+    }
+
     public void OnMouseOver()
     {
-        Debug.Log("Tile->OnMouseOver");
+        glowObject.SetActive(true);
+        if (moveAdvisor.IsValidMovePosition(new Vector2(0,0), boardPosition))
+        {
+            glowObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }
     }
 
     public void OnMouseExit()
     {
-        Debug.Log("Tile->OnMouseExit");
+        glowObject.SetActive(false);
+        glowObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     public void OnMouseDown()
     {
-        Debug.Log("Tile->OnMouseDown");
+        Debug.Log("Tile->OnMouseDown " + boardPosition);
     }
 }

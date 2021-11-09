@@ -6,6 +6,7 @@ public class BoardGenerator : MonoBehaviour
 {
     public GameObject tilePrefab;
     public Vector2 boardDimensions;
+    public Dictionary<string, GameObject> tileSet;
 
     private const float xSpacing = 1.0f;
     private const float ySpacing = 0.8f;
@@ -15,6 +16,7 @@ public class BoardGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        tileSet = new Dictionary<string, GameObject>();
         board = GameObject.Find("Board");
         GenerateBoard(16, 16);
     }
@@ -27,6 +29,7 @@ public class BoardGenerator : MonoBehaviour
 
     public void GenerateBoard(int xSize, int ySize)
     {
+        var tileComponents = GetComponent<TileComponents>();
         boardDimensions = new Vector2(xSize * xSpacing, ySize * ySpacing);
         Vector2 boardOffset = boardDimensions / 2;
 
@@ -35,12 +38,17 @@ public class BoardGenerator : MonoBehaviour
             for(int y = 0; y < ySize; y++)
             {
                 var newTile = Instantiate(tilePrefab, board.transform);
+                newTile.GetComponent<TileInteractManager>().boardPosition = new Vector2(x, y);
+                string index = x + "," + y;
                 bool isOddRow = y % 2 == 1;
                 float xOffset = isOddRow ? boardOffset.x - alternateOffset : boardOffset.x;
                 newTile.transform.position = new Vector2(
                     x * xSpacing - xOffset,
                     y * ySpacing - boardOffset.y
                 );
+                var component = tileComponents.componentList[0];
+                newTile.GetComponent<TileEntityContainer>().AddEntity(component);
+                tileSet[index] = newTile;
             }
         }
     }

@@ -24,7 +24,6 @@ public class CameraControl : MonoBehaviour
 
     private void UpdateTransform(Vector3 deltaPosition)
     {
-        Debug.Log("deltaPosition " + deltaPosition);
         Vector3 newPosition = target.position + deltaPosition;
         if (newPosition.y >= MAX_ZOOM)
         {
@@ -40,19 +39,20 @@ public class CameraControl : MonoBehaviour
     {
         Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        // TODO Add scroll zoom
         /*if (Input.mouseScrollDelta.y != 0.0f)
         {
             Debug.Log(Input.mouseScrollDelta.y);
             currentPos.z += Input.mouseScrollDelta.y * scrollWheelSpeed * Time.deltaTime;
         }*/
 
+        // TODO Add panning with arrow keys
+
         if (Input.GetMouseButton(2))
         {
-            Debug.Log("lastPos " + lastPos);
             Vector3 currentMousePos = mouseWorldPosition;
             Vector3 mouseDelta = currentMousePos - lastPos;
             mouseDelta = new Vector3(mouseDelta.x, mouseDelta.y, mouseDelta.z);
-            //currentPos += mouseDelta * panSpeed * Time.deltaTime;
             UpdateTransform(mouseDelta * panSpeed * Time.deltaTime);
             lastPos = currentMousePos;
         }
