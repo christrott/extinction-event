@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMoveAdvisor : MonoBehaviour
 {
-    public bool IsValidMovePosition(Vector2 playerPos, Vector2 movePos)
+    public bool IsValidMovePosition(Vector2 movePos)
     {
+        Vector2 playerPos = GetComponent<PlayerMoveController>().playerPos;
+
         if (playerPos == movePos)
         {
             return false;
@@ -24,7 +26,6 @@ public class PlayerMoveAdvisor : MonoBehaviour
             }
         }
 
-        // TODO Account for x adjustment
         bool isOddRow = playerPos.y % 2 == 1;
         var adjustLeftX = isOddRow ? 1 : 2;
         var adjustRightX = isOddRow ? 1 : 0;

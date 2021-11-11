@@ -6,16 +6,18 @@ public class TileInteractManager : MonoBehaviour
     public Vector2 boardPosition;
 
     private PlayerMoveAdvisor moveAdvisor;
+    private PlayerMoveController moveController;
 
     public void Start()
     {
         moveAdvisor = gameObject.transform.parent.GetComponent<PlayerMoveAdvisor>();
+        moveController = gameObject.transform.parent.GetComponent<PlayerMoveController>();
     }
 
     public void OnMouseOver()
     {
         glowObject.SetActive(true);
-        if (moveAdvisor.IsValidMovePosition(new Vector2(0,0), boardPosition))
+        if (moveAdvisor.IsValidMovePosition(boardPosition))
         {
             glowObject.GetComponent<SpriteRenderer>().color = Color.green;
         }
@@ -30,5 +32,7 @@ public class TileInteractManager : MonoBehaviour
     public void OnMouseDown()
     {
         Debug.Log("Tile->OnMouseDown " + boardPosition);
+        moveController.MovePlayer(boardPosition);
+        glowObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

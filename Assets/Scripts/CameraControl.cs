@@ -1,12 +1,15 @@
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class CameraControl : MonoBehaviour
 {
     public Transform target;
     public GameObject player;
 
-    public static bool INVERT_SCROLL = true;
-    private static float MAX_ZOOM = 38.0f;
+    /*public static bool INVERT_SCROLL = true;
+    private static float MIN_ZOOM = 20.0f;
+    private static float MAX_ZOOM = 5.0f;
+    private float targetZoom = 5.0f;*/
 
     public float arrowMoveSpeed;
     public float scrollWheelSpeed;
@@ -25,13 +28,8 @@ public class CameraControl : MonoBehaviour
     private void UpdateTransform(Vector3 deltaPosition)
     {
         Vector3 newPosition = target.position + deltaPosition;
-        if (newPosition.y >= MAX_ZOOM)
-        {
-            newPosition.y = MAX_ZOOM;
-        }
         newPosition.x = Mathf.Clamp(newPosition.x, -mapDimensions.x, mapDimensions.x);
         newPosition.y = Mathf.Clamp(newPosition.y, -mapDimensions.y, mapDimensions.y);
-
         target.position = newPosition;
     }
 
@@ -43,7 +41,11 @@ public class CameraControl : MonoBehaviour
         /*if (Input.mouseScrollDelta.y != 0.0f)
         {
             Debug.Log(Input.mouseScrollDelta.y);
-            currentPos.z += Input.mouseScrollDelta.y * scrollWheelSpeed * Time.deltaTime;
+            Camera.main.orthographicSize *= scrollWheelSpeed * Input.mouseScrollDelta.y;
+            targetZoom -= Input.mouseScrollDelta.y * scrollWheelSpeed;
+            targetZoom = Mathf.Clamp(targetZoom, MAX_ZOOM, MIN_ZOOM);
+            float newSize = Mathf.MoveTowards(Camera.main.orthographicSize, targetZoom, scrollWheelSpeed * Time.deltaTime);
+            Camera.main.orthographicSize = newSize;
         }*/
 
         // TODO Add panning with arrow keys
