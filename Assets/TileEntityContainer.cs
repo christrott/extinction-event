@@ -5,7 +5,14 @@ using UnityEngine;
 public class TileEntityContainer : MonoBehaviour
 {
     public GameObject entityObject;
+
+    private EntityPriorityManager priorityManager;
     private List<TileEntity> tileEntities;
+
+    private void Start()
+    {
+        priorityManager = GameObject.Find("Board").GetComponent<EntityPriorityManager>();
+    }
 
     public void AddEntity(TileEntity newEntity)
     {
@@ -27,15 +34,46 @@ public class TileEntityContainer : MonoBehaviour
     public void RemoveEntity(TileEntity entity)
     {
         tileEntities.Remove(entity);
+        if (tileEntities.Count > 0)
+        {
+            UpdateEntity(tileEntities[0]);
+        }
+        else
+        {
+            UpdateEntity(null);
+        }
+    }
+
+    public TileEntity GetTileEntityByType(TileTypes type)
+    {
+        return tileEntities.Find((entity) => entity.type == type);
     }
 
     private void ResolveInteraction(TileEntity entity1, TileEntity entity2)
     {
         Debug.Log("ResolveInteraction " + entity1.name + ", " + entity2.name);
+        TileTypes dominatantType = priorityManager.GetTileTypePriority(entity1.type, entity2.type);
+        if (entity1.type == dominatantType)
+        {
+            RemoveEntity(entity2);
+            UpdateEntity(entity1);
+        } else
+        {
+            RemoveEntity(entity1);
+            UpdateEntity(entity2);
+        }
     }
 
     private void UpdateEntity(TileEntity entity)
     {
-        entityObject.GetComponent<SpriteRenderer>().sprite = entity.sprite;
+        if (entity == null)
+        {
+            // TODO Render barren / void tile
+            entityObject.GetComponent<SpriteRenderer>().sprite = null;
+        }
+        else
+        {
+            entityObject.GetComponent<SpriteRenderer>().sprite = entity.sprite;
+        }
     }
 }

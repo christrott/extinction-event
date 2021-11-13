@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    public Dictionary<string, GameObject> tileSet;
+
     public GameObject GetTile(Vector2 position)
     {
-        return GameObject.Find(position.x + "," + position.y);
+        Debug.Log("GetTile(" + position.x + "," + position.y + ")");
+        return tileSet[position.x + "," + position.y];
     }
 }
