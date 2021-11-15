@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerMoveAdvisor : MonoBehaviour
 {
+    public GameObject GetTileAtPlayerPosition()
+    {
+        Vector2 playerPos = GetComponent<PlayerMoveController>().playerPos;
+        BoardManager boardManager = GetComponent<BoardManager>();
+        return boardManager.GetTile(playerPos);
+    }
+
     public bool IsValidMovePosition(Vector2 movePos)
     {
         Vector2 playerPos = GetComponent<PlayerMoveController>().playerPos;

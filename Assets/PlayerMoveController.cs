@@ -7,11 +7,13 @@ public class PlayerMoveController : MonoBehaviour
     public Vector2 playerPos;
 
     private BoardManager boardManager;
+    private PlayerEnergyManager energyManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        boardManager = GetComponent<BoardManager>(); 
+        boardManager = GetComponent<BoardManager>();
+        energyManager = GetComponent<PlayerEnergyManager>();
     }
 
     // Update is called once per frame
@@ -27,9 +29,11 @@ public class PlayerMoveController : MonoBehaviour
             var currentTile = boardManager.GetTile(playerPos);
             var newTile = boardManager.GetTile(newPosition);
             // TODO Update tiles with new status
+            energyManager.DeductMoveCost(newTile.GetComponent<TileEntityContainer>().GetTileTypes());
             var currentTileContainer = currentTile.GetComponent<TileEntityContainer>();
             TileEntity playerEntity = getPlayerEntityFromTile(currentTileContainer);
             currentTile.GetComponent<TileEntityContainer>().RemoveEntity(playerEntity);
+            var destinationType = newTile.GetComponent<TileEntityContainer>();
             newTile.GetComponent<TileEntityContainer>().AddEntity(playerEntity);
             playerPos = newPosition;
         }

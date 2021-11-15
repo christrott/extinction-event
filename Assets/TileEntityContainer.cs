@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileEntityContainer : MonoBehaviour
 {
-    public GameObject entityObject;
+    public GameObject entityDisplayObject;
 
     private EntityPriorityManager priorityManager;
     private List<TileEntity> tileEntities;
@@ -31,6 +32,11 @@ public class TileEntityContainer : MonoBehaviour
         }
     }
 
+    public List<TileTypes> GetTileTypes()
+    {
+        return tileEntities.Select(entity => entity.type).ToList();
+    }
+
     public void RemoveEntity(TileEntity entity)
     {
         tileEntities.Remove(entity);
@@ -47,6 +53,11 @@ public class TileEntityContainer : MonoBehaviour
     public TileEntity GetTileEntityByType(TileTypes type)
     {
         return tileEntities.Find((entity) => entity.type == type);
+    }
+
+    public TileEntity GetTileEntityExcluding(TileTypes excludeType)
+    {
+        return tileEntities.Find((entity) => entity.type != excludeType);
     }
 
     private void ResolveInteraction(TileEntity entity1, TileEntity entity2)
@@ -69,11 +80,11 @@ public class TileEntityContainer : MonoBehaviour
         if (entity == null)
         {
             // TODO Render barren / void tile
-            entityObject.GetComponent<SpriteRenderer>().sprite = null;
+            entityDisplayObject.GetComponent<SpriteRenderer>().sprite = null;
         }
         else
         {
-            entityObject.GetComponent<SpriteRenderer>().sprite = entity.sprite;
+            entityDisplayObject.GetComponent<SpriteRenderer>().sprite = entity.sprite;
         }
     }
 }
