@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class CameraControl : MonoBehaviour
 {
@@ -28,8 +27,11 @@ public class CameraControl : MonoBehaviour
     private void UpdateTransform(Vector3 deltaPosition)
     {
         Vector3 newPosition = target.position + deltaPosition;
-        newPosition.x = Mathf.Clamp(newPosition.x, -mapDimensions.x, mapDimensions.x);
-        newPosition.y = Mathf.Clamp(newPosition.y, -mapDimensions.y, mapDimensions.y);
+        if (mapDimensions.x > 0 && mapDimensions.y > 0)
+        {
+            newPosition.x = Mathf.Clamp(newPosition.x, -mapDimensions.x, mapDimensions.x);
+            newPosition.y = Mathf.Clamp(newPosition.y, -mapDimensions.y, mapDimensions.y);
+        }
         target.position = newPosition;
     }
 
@@ -62,5 +64,12 @@ public class CameraControl : MonoBehaviour
         {
             lastPos = mouseWorldPosition;
         }
+    }
+
+    public void CentreCameraOnTile(Vector2 tilePosition)
+    {
+        BoardManager boardManager = GameObject.Find("Board").GetComponent<BoardManager>();
+        var worldPosition = boardManager.GetTile(tilePosition).transform.position;
+        UpdateTransform(-worldPosition);
     }
 }

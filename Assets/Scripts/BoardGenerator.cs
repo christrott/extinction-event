@@ -59,7 +59,7 @@ public class BoardGenerator : MonoBehaviour
                 board.GetComponent<BoardManager>().tileSet[index] = newTile;
             }
         }
-        
+        GameObject.Find("Main Camera").GetComponent<CameraControl>().CentreCameraOnTile(playerPos);
     }
 
     private Vector2 GeneratePlayerPosition(int xSize, int ySize)
