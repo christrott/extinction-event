@@ -8,6 +8,11 @@ public class PlayerEnergyManager : MonoBehaviour
     public int maxEnergy = 100;
     public GameObject energyProgressBar;
 
+    private void Start()
+    {
+        UpdateEnergy(energy);
+    }
+
     public void DeductMoveCost(List<TileTypes> destinationTileTypes)
     {
         Debug.Log("DeductMoveCost()");

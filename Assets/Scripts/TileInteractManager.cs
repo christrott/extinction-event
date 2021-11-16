@@ -7,6 +7,8 @@ public class TileInteractManager : MonoBehaviour
 
     private PlayerMoveAdvisor moveAdvisor;
     private PlayerMoveController moveController;
+    private Color32 highlightNoAction = new Color32(192, 2, 156, 128); // #C0029C
+    private Color32 canMoveColor = new Color32(156, 192, 2, 255); // #9CC002
 
     public void Start()
     {
@@ -19,20 +21,20 @@ public class TileInteractManager : MonoBehaviour
         glowObject.SetActive(true);
         if (moveAdvisor.IsValidMovePosition(boardPosition))
         {
-            glowObject.GetComponent<SpriteRenderer>().color = Color.green;
+            glowObject.GetComponent<SpriteRenderer>().color = canMoveColor;
         }
     }
 
     public void OnMouseExit()
     {
         glowObject.SetActive(false);
-        glowObject.GetComponent<SpriteRenderer>().color = Color.white;
+        glowObject.GetComponent<SpriteRenderer>().color = highlightNoAction;
     }
 
     public void OnMouseDown()
     {
         Debug.Log("Tile->OnMouseDown " + boardPosition);
         moveController.MovePlayer(boardPosition);
-        glowObject.GetComponent<SpriteRenderer>().color = Color.white;
+        glowObject.GetComponent<SpriteRenderer>().color = highlightNoAction;
     }
 }
