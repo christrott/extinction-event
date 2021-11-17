@@ -34,7 +34,7 @@ public class PlayerMoveAdvisor : MonoBehaviour
         }
 
         bool isOddRow = playerPos.y % 2 == 1;
-        var adjustLeftX = isOddRow ? 1 : 2;
+        var adjustLeftX = isOddRow ? 1 : 1;
         var adjustRightX = isOddRow ? 1 : 0;
 
         // Check x
