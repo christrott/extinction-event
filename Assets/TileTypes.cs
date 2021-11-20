@@ -11,5 +11,6 @@ public enum TileTypes
     PlayerTier2,
     PlayerTier3,
     EventFront,
-    EventVoid
+    EventVoid,
+    Empty,
 };

@@ -19,28 +19,24 @@ public class PlayerEnergyManager : MonoBehaviour
 
     public void DeductMoveCost(List<TileTypes> destinationTileTypes)
     {
-        Debug.Log("DeductMoveCost()");
-        Debug.Log(destinationTileTypes);
-        // TODO Don't just use the first, get the highest cost type
-        var destinationTile = destinationTileTypes[0];
-        var tileMoveCost = GetTileEnergyCost(destinationTile);
+        Debug.Log("DeductMoveCost(" + destinationTileTypes.Count + ")");
+        var tileMoveCost = GetTileEnergyCost(destinationTileTypes);
         UpdateEnergy(energy - tileMoveCost);
     }
 
     public void AddEnergyFromFood(TileTypes foodType)
     {
-        // TODO
         Debug.Log("AddEnergyFromFood(" + foodType + ")");
         var energyGain = gainManager.GetEnergyGainForTile(foodType);
         UpdateEnergy(energy + energyGain);
     }
 
-    public int GetTileEnergyCost(TileTypes destinationTile)
+    public int GetTileEnergyCost(List<TileTypes> destinationTileTypes)
     {
         GameObject playerTile = GetComponent<PlayerMoveAdvisor>().GetTileAtPlayerPosition();
-        List<TileTypes> typesAtPlayer = playerTile.GetComponent<TileEntityContainer>().GetTileTypes();
-        int highestCost = typesAtPlayer.Aggregate(0, (existingCost, newTile) => {
-            var newCost = costManager.GetCostForTile(newTile);
+        //List<TileTypes> typesAtPlayer = playerTile.GetComponent<TileEntityContainer>().GetTileTypes();
+        int highestCost = destinationTileTypes.Aggregate(0, (existingCost, newType) => {
+            var newCost = costManager.GetCostForTile(newType);
             return existingCost > newCost ? existingCost : newCost;
         });
         return highestCost;

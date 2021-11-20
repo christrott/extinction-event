@@ -7,6 +7,11 @@ public class TileEntityContainer : MonoBehaviour
 {
     public GameObject entityDisplayObject;
 
+    private TileEntity emptyTileEntity = new TileEntity {
+        name = "",
+        sprite = null,
+        type = TileTypes.Empty,
+    };
     private EntityPriorityManager priorityManager;
     private List<TileEntity> tileEntities;
 
@@ -21,10 +26,15 @@ public class TileEntityContainer : MonoBehaviour
         {
             tileEntities = new List<TileEntity>();
         }
+        if (tileEntities.Count == 1 && tileEntities[0].type == TileTypes.Empty)
+        {
+            tileEntities.Remove(emptyTileEntity);
+        }
+        
         tileEntities.Add(newEntity);
         if (tileEntities.Count > 1)
         {
-            ResolveInteraction(tileEntities[0], newEntity);
+            ResolveInteraction(tileEntities[0], tileEntities[1]);
         }
         else
         {
@@ -62,7 +72,7 @@ public class TileEntityContainer : MonoBehaviour
 
     private void ResolveInteraction(TileEntity entity1, TileEntity entity2)
     {
-        Debug.Log("ResolveInteraction " + entity1.name + ", " + entity2.name);
+        //Debug.Log("ResolveInteraction " + entity1.name + ", " + entity2.name);
         TileTypes dominatantType = priorityManager.GetTileTypePriority(entity1.type, entity2.type);
         if (entity1.type == dominatantType)
         {
@@ -80,7 +90,7 @@ public class TileEntityContainer : MonoBehaviour
         if (entity == null)
         {
             // TODO Render barren / void tile
-            entityDisplayObject.GetComponent<SpriteRenderer>().sprite = null;
+            entityDisplayObject.GetComponent<SpriteRenderer>().sprite = emptyTileEntity.sprite;
         }
         else
         {

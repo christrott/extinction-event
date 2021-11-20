@@ -28,8 +28,8 @@ public class PlayerMoveController : MonoBehaviour
         {
             var currentTile = boardManager.GetTile(playerPos);
             var newTile = boardManager.GetTile(newPosition);
-            // TODO Update tiles with new status
-            energyManager.DeductMoveCost(newTile.GetComponent<TileEntityContainer>().GetTileTypes());
+            var newTileEntityTypes = newTile.GetComponent<TileEntityContainer>().GetTileTypes();
+            energyManager.DeductMoveCost(newTileEntityTypes);
             var currentTileContainer = currentTile.GetComponent<TileEntityContainer>();
             TileEntity playerEntity = getPlayerEntityFromTile(currentTileContainer);
             currentTile.GetComponent<TileEntityContainer>().RemoveEntity(playerEntity);

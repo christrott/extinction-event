@@ -9,6 +9,7 @@ public class EntityCostDirector : MonoBehaviour
     private void Start()
     {
         playerTierCosts = new Dictionary<TileTypes, int>();
+        playerTierCosts.Add(TileTypes.Empty, 1);
         playerTierCosts.Add(TileTypes.Grass, 0);
         playerTierCosts.Add(TileTypes.Bush, 1);
         playerTierCosts.Add(TileTypes.Tree, 1);
