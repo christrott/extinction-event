@@ -56,7 +56,8 @@ public class TileEntityContainer : MonoBehaviour
         }
         else
         {
-            UpdateEntity(null);
+            AddEntity(emptyTileEntity);
+            UpdateEntity(emptyTileEntity);
         }
     }
 
@@ -87,14 +88,6 @@ public class TileEntityContainer : MonoBehaviour
 
     private void UpdateEntity(TileEntity entity)
     {
-        if (entity == null)
-        {
-            // TODO Render barren / void tile
-            entityDisplayObject.GetComponent<SpriteRenderer>().sprite = emptyTileEntity.sprite;
-        }
-        else
-        {
-            entityDisplayObject.GetComponent<SpriteRenderer>().sprite = entity.sprite;
-        }
+        entityDisplayObject.GetComponent<SpriteRenderer>().sprite = entity.sprite;
     }
 }
