@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerEnergyManager : MonoBehaviour
@@ -7,9 +8,12 @@ public class PlayerEnergyManager : MonoBehaviour
     public int energy = 20;
     public int maxEnergy = 100;
     public GameObject energyProgressBar;
+    EntityCostDirector costManager;
+    EntityEnergyDirector gainManager;
 
     private void Start()
     {
+        costManager = GetComponent<EntityCostDirector>();
         UpdateEnergy(energy);
     }
 
@@ -27,21 +31,19 @@ public class PlayerEnergyManager : MonoBehaviour
     {
         // TODO
         Debug.Log("AddEnergyFromFood(" + foodType + ")");
+        var energyGain = gainManager.GetEnergyGainForTile(foodType);
+        UpdateEnergy(energy + energyGain);
     }
 
     public int GetTileEnergyCost(TileTypes destinationTile)
     {
         GameObject playerTile = GetComponent<PlayerMoveAdvisor>().GetTileAtPlayerPosition();
-        TileTypes playerTileType = playerTile.GetComponent<TileEntityContainer>().GetTileTypes()[0];
-        if (playerTileType == TileTypes.EventFront)
-        {
-            return 5;
-        }
-        else
-        {
-            // TODO Handle cost based on moving away from stronger enemies
-            return 2;
-        }
+        List<TileTypes> typesAtPlayer = playerTile.GetComponent<TileEntityContainer>().GetTileTypes();
+        int highestCost = typesAtPlayer.Aggregate(0, (existingCost, newTile) => {
+            var newCost = costManager.GetCostForTile(newTile);
+            return existingCost > newCost ? existingCost : newCost;
+        });
+        return highestCost;
     }
 
     public void UpdateEnergy(int newEnergy)
