@@ -14,6 +14,7 @@ public class PlayerEnergyManager : MonoBehaviour
     private void Start()
     {
         costManager = GetComponent<EntityCostDirector>();
+        gainManager = GetComponent<EntityEnergyDirector>();
         UpdateEnergy(energy);
     }
 

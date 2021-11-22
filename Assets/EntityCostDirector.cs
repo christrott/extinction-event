@@ -22,7 +22,6 @@ public class EntityCostDirector : MonoBehaviour
 
     public int GetCostForTile(TileTypes tileType)
     {
-        Debug.Log("GetCostForTile(" + tileType + ")");
         try
         {
             return playerTierCosts[tileType];

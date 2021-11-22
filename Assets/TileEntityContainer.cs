@@ -12,12 +12,15 @@ public class TileEntityContainer : MonoBehaviour
         sprite = null,
         type = TileTypes.Empty,
     };
+    private PlayerEnergyManager playerEnergyManager;
     private EntityPriorityManager priorityManager;
     private List<TileEntity> tileEntities;
 
     private void Start()
     {
-        priorityManager = GameObject.Find("Board").GetComponent<EntityPriorityManager>();
+        var board = GameObject.Find("Board");
+        priorityManager = board.GetComponent<EntityPriorityManager>();
+        playerEnergyManager = board.GetComponent<PlayerEnergyManager>();
     }
 
     public void AddEntity(TileEntity newEntity)
@@ -79,8 +82,15 @@ public class TileEntityContainer : MonoBehaviour
     private void ResolveInteraction(TileEntity entity1, TileEntity entity2)
     {
         //Debug.Log("ResolveInteraction " + entity1.name + ", " + entity2.name);
-        TileTypes dominatantType = priorityManager.GetTileTypePriority(entity1.type, entity2.type);
-        if (entity1.type == dominatantType)
+        TileTypes dominantType = priorityManager.GetTileTypePriority(entity1.type, entity2.type);
+
+        if (dominantType == TileTypes.PlayerTier1)
+        {
+            var consumedEntity = (entity1.type == TileTypes.PlayerTier1) ? entity2 : entity1;
+            playerEnergyManager.AddEnergyFromFood(consumedEntity.type);
+        }
+
+        if (entity1.type == dominantType)
         {
             RemoveEntity(entity2);
             UpdateEntity(entity1);
