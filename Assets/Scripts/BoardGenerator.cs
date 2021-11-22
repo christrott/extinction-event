@@ -28,6 +28,7 @@ public class BoardGenerator : MonoBehaviour
 
     public void GenerateBoard(int xSize, int ySize)
     {
+        var tileIndex = 0;
         board.GetComponent<BoardManager>().tileSet = new Dictionary<string, GameObject>();
         var tileComponents = GetComponent<TileComponents>();
         var playerPos = GeneratePlayerPosition(xSize, ySize);
@@ -53,7 +54,8 @@ public class BoardGenerator : MonoBehaviour
                     newTile.GetComponent<TileEntityContainer>().AddEntity(startingPlayerEntity);
                 } else
                 {
-                    var component = tileComponents.componentList[0];
+                    tileIndex = (tileIndex + 1) % tileComponents.componentList.Count;
+                    var component = tileComponents.componentList[tileIndex];
                     newTile.GetComponent<TileEntityContainer>().AddEntity(component);
                 }
                 board.GetComponent<BoardManager>().tileSet[index] = newTile;

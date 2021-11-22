@@ -905,16 +905,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.data[1].name
-      value: Grass
+      value: Bush
       objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.data[1].type
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.data[1].sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e1d48f60da07efd448a5accb1a49b6eb, type: 3}
+      objectReference: {fileID: 21300000, guid: 3bccbf03c9dbadf4c940a70cfeb14ee3, type: 3}
     - target: {fileID: 4947127818747274811, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: startingPlayerEntity.name
       value: Player
