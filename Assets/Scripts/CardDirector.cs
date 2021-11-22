@@ -16,10 +16,10 @@ public class CardDirector : MonoBehaviour
         {
             cardInstance.SetActive(true);
         }
-        var screenPosition = Camera.current.WorldToScreenPoint(worldPosition);
+        var screenPosition = Camera.main.WorldToScreenPoint(worldPosition);
         cardInstance.transform.position = screenPosition;
         cardInstance.GetComponent<Card>().SetCardContent(title, content);
-        cardInstance.GetComponent<RectTransform>().pivot = getCardOffset(screenPosition, Camera.current);
+        cardInstance.GetComponent<RectTransform>().pivot = getCardOffset(screenPosition, Camera.main);
     }
 
     // Show card at screen position
@@ -35,7 +35,7 @@ public class CardDirector : MonoBehaviour
         }
         cardInstance.transform.position = screenPosition;
         cardInstance.GetComponent<Card>().SetCardContent(title, content);
-        cardInstance.GetComponent<RectTransform>().pivot = getCardOffset(screenPosition, Camera.current);
+        cardInstance.GetComponent<RectTransform>().pivot = getCardOffset(screenPosition, Camera.main);
     }
 
     public void HideCard()
@@ -46,7 +46,7 @@ public class CardDirector : MonoBehaviour
 
     private Vector2 getCardOffset(Vector2 screenPoint, Camera camera)
     {
-        Vector2 screenDimensions = new Vector2(Camera.current.pixelWidth, Camera.current.pixelHeight);
+        Vector2 screenDimensions = new Vector2(Camera.main.pixelWidth, Camera.main.pixelHeight);
         return new Vector2(Mathf.Round(screenPoint.x / screenDimensions.x), Mathf.Round(screenPoint.y / screenDimensions.y));
     }
 }

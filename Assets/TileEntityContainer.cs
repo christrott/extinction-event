@@ -42,6 +42,11 @@ public class TileEntityContainer : MonoBehaviour
         }
     }
 
+    public TileEntity GetBaseTileEntity()
+    {
+        return tileEntities[0];
+    }
+
     public List<TileTypes> GetTileTypes()
     {
         return tileEntities.Select(entity => entity.type).ToList();
