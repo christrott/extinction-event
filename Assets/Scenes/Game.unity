@@ -1105,6 +1105,6 @@ PrefabInstance:
     - target: {fileID: 4947127818747274811, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: startingPlayerEntity.sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0fea5a2535ba7ca4db4673629a94997f, type: 3}
+      objectReference: {fileID: 21300000, guid: e869fb5912ea77e408748aaad1d4b7f0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
