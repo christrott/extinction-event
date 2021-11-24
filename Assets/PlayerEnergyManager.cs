@@ -8,6 +8,7 @@ public class PlayerEnergyManager : MonoBehaviour
     public int energy = 20;
     public int maxEnergy = 100;
     public GameObject energyProgressBar;
+    public GameObject gameOverPanel;
     EntityCostDirector costManager;
     EntityEnergyDirector gainManager;
 
@@ -23,6 +24,10 @@ public class PlayerEnergyManager : MonoBehaviour
         Debug.Log("DeductMoveCost(" + destinationTileTypes.Count + ")");
         var tileMoveCost = GetTileEnergyCost(destinationTileTypes);
         UpdateEnergy(energy - tileMoveCost);
+        if (energy <= 0)
+        {
+            GameOver();
+        }
     }
 
     public void AddEnergyFromFood(TileTypes foodType)
@@ -36,7 +41,8 @@ public class PlayerEnergyManager : MonoBehaviour
     {
         GameObject playerTile = GetComponent<PlayerMoveAdvisor>().GetTileAtPlayerPosition();
         //List<TileTypes> typesAtPlayer = playerTile.GetComponent<TileEntityContainer>().GetTileTypes();
-        int highestCost = destinationTileTypes.Aggregate(0, (existingCost, newType) => {
+        int highestCost = destinationTileTypes.Aggregate(0, (existingCost, newType) =>
+        {
             var newCost = costManager.GetCostForTile(newType);
             return existingCost > newCost ? existingCost : newCost;
         });
@@ -48,5 +54,11 @@ public class PlayerEnergyManager : MonoBehaviour
         energy = newEnergy;
         float energyFillRatio = (float)energy / (float)maxEnergy;
         energyProgressBar.GetComponent<ProgressBarController>().SetProgress(energyFillRatio);
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over");
+        gameOverPanel.SetActive(true);
     }
 }
