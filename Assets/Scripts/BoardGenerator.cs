@@ -8,23 +8,20 @@ public class BoardGenerator : MonoBehaviour
     public Vector2 boardDimensions;
     public TileEntity startingPlayerEntity;
     public TileEntity tileExitEntity;
+    public TileEntity voidFrontEntity;
 
     private const float xSpacing = 1.0f;
     private const float ySpacing = 0.8f;
     private const float alternateOffset = xSpacing / 2.0f;
     private GameObject board;
+    private GameObject voidDirector;
 
     // Start is called before the first frame update
     void Awake()
     {
         board = GameObject.Find("Board");
+        voidDirector = GameObject.Find("VoidDirector");
         GenerateBoard(17, 17);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void GenerateBoard(int xSize, int ySize)
@@ -33,6 +30,7 @@ public class BoardGenerator : MonoBehaviour
         board.GetComponent<BoardManager>().tileSet = new Dictionary<string, GameObject>();
         var tileComponents = GetComponent<TileComponents>();
         var playerPos = GeneratePlayerPosition(xSize, ySize);
+        var voidPos = GenerateVoidPosition(xSize, ySize, playerPos);
         board.GetComponent<PlayerMoveController>().playerPos = playerPos;
         boardDimensions = new Vector2(xSize * xSpacing, ySize * ySpacing);
         Vector2 boardOffset = boardDimensions / 2;
@@ -53,7 +51,12 @@ public class BoardGenerator : MonoBehaviour
                 if (playerPos.x == x && playerPos.y == y)
                 {
                     newTile.GetComponent<TileEntityContainer>().AddEntity(startingPlayerEntity);
-                } else
+                }
+                else if (voidPos.x == x && voidPos.y == y)
+                {
+                    newTile.GetComponent<TileEntityContainer>().AddEntity(voidFrontEntity);
+                }
+                else
                 {
                     if (y == 0 || y == ySize - 1  || x == 0 || x == xSize - 1)
                     {
@@ -77,6 +80,13 @@ public class BoardGenerator : MonoBehaviour
     {
         Vector2 xBand = new Vector2(Mathf.FloorToInt(xSize * 0.25f), Mathf.FloorToInt(xSize * 0.75f));
         Vector2 yBand = new Vector2(Mathf.FloorToInt(ySize * 0.25f), Mathf.FloorToInt(ySize * 0.75f));
-        return new Vector2(xBand.x, yBand.y);
+        return new Vector2(xBand.x, yBand.x);
+    }
+
+    private Vector2 GenerateVoidPosition(int xSize, int ySize, Vector2 playerPosition)
+    {
+        Vector2 xBand = new Vector2(Mathf.FloorToInt(xSize * 0.25f), Mathf.FloorToInt(xSize * 0.75f));
+        Vector2 yBand = new Vector2(Mathf.FloorToInt(ySize * 0.25f), Mathf.FloorToInt(ySize * 0.75f));
+        return new Vector2(xBand.y, yBand.y);
     }
 }

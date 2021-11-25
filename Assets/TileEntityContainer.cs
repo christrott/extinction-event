@@ -92,11 +92,17 @@ public class TileEntityContainer : MonoBehaviour
 
         if (entity1.type == dominantType)
         {
-            RemoveEntity(entity2);
+            if (entity2.type != TileTypes.PlayerTier1)
+            {
+                RemoveEntity(entity2);
+            }
             UpdateEntity(entity1);
         } else
         {
-            RemoveEntity(entity1);
+            if (entity1.type != TileTypes.PlayerTier1)
+            {
+                RemoveEntity(entity1);
+            }
             UpdateEntity(entity2);
         }
     }
