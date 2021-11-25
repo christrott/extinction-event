@@ -7,6 +7,7 @@ public class BoardGenerator : MonoBehaviour
     public GameObject tilePrefab;
     public Vector2 boardDimensions;
     public TileEntity startingPlayerEntity;
+    public TileEntity tileExitEntity;
 
     private const float xSpacing = 1.0f;
     private const float ySpacing = 0.8f;
@@ -17,7 +18,7 @@ public class BoardGenerator : MonoBehaviour
     void Awake()
     {
         board = GameObject.Find("Board");
-        GenerateBoard(16, 16);
+        GenerateBoard(17, 17);
     }
 
     // Update is called once per frame
@@ -54,9 +55,17 @@ public class BoardGenerator : MonoBehaviour
                     newTile.GetComponent<TileEntityContainer>().AddEntity(startingPlayerEntity);
                 } else
                 {
-                    tileIndex = (tileIndex + 1) % tileComponents.componentList.Count;
-                    var component = tileComponents.componentList[tileIndex];
-                    newTile.GetComponent<TileEntityContainer>().AddEntity(component);
+                    if (y == 0 || y == ySize - 1  || x == 0 || x == xSize - 1)
+                    {
+                        Debug.Log("Place Exit tile at (" + x + "," + y + ")");
+                        var component = tileExitEntity;
+                        newTile.GetComponent<TileEntityContainer>().AddEntity(component);
+                    } else
+                    {
+                        tileIndex = (tileIndex + 1) % tileComponents.componentList.Count;
+                        var component = tileComponents.componentList[tileIndex];
+                        newTile.GetComponent<TileEntityContainer>().AddEntity(component);
+                    }
                 }
                 board.GetComponent<BoardManager>().tileSet[index] = newTile;
             }

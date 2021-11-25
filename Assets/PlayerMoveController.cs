@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMoveController : MonoBehaviour
 {
     public Vector2 playerPos;
+    public GameObject gameWonModal;
 
     private BoardManager boardManager;
     private PlayerEnergyManager energyManager;
@@ -26,6 +27,10 @@ public class PlayerMoveController : MonoBehaviour
     {
         if (GetComponent<PlayerMoveAdvisor>().IsValidMovePosition(newPosition))
         {
+            if (playerIsInWinPosition(newPosition)) {
+                gameWonModal.SetActive(true);
+                return;
+            }
             var currentTile = boardManager.GetTile(playerPos);
             var newTile = boardManager.GetTile(newPosition);
             var newTileEntityTypes = newTile.GetComponent<TileEntityContainer>().GetTileTypes();
@@ -42,5 +47,12 @@ public class PlayerMoveController : MonoBehaviour
     private TileEntity getPlayerEntityFromTile(TileEntityContainer tile)
     {
         return tile.GetTileEntityByType(TileTypes.PlayerTier1);
+    }
+
+    private bool playerIsInWinPosition(Vector2 position)
+    {
+        var tile = boardManager.GetTile(position);
+        var baseTileEntity = tile.GetComponent<TileEntityContainer>().GetBaseTileEntity();
+        return (baseTileEntity.type == TileTypes.Exit);
     }
 }

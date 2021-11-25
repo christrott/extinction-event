@@ -13,4 +13,5 @@ public enum TileTypes
     EventFront,
     EventVoid,
     Empty,
+    Exit,
 };
