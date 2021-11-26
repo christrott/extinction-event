@@ -6,6 +6,7 @@ public class PlayerMoveController : MonoBehaviour
 {
     public Vector2 playerPos;
     public GameObject gameWonModal;
+    public VoidController voidController;
 
     private BoardManager boardManager;
     private PlayerEnergyManager energyManager;
@@ -41,6 +42,7 @@ public class PlayerMoveController : MonoBehaviour
             var destinationType = newTile.GetComponent<TileEntityContainer>();
             newTile.GetComponent<TileEntityContainer>().AddEntity(playerEntity);
             playerPos = newPosition;
+            voidController.SpreadVoid();
         }
     }
 

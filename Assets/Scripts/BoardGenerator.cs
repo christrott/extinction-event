@@ -55,6 +55,7 @@ public class BoardGenerator : MonoBehaviour
                 else if (voidPos.x == x && voidPos.y == y)
                 {
                     newTile.GetComponent<TileEntityContainer>().AddEntity(voidFrontEntity);
+                    voidDirector.GetComponent<VoidController>().RegisterVoidFrontTile(newTile, false);
                 }
                 else
                 {
