@@ -7,16 +7,20 @@ public class TileInteractManager : MonoBehaviour
     public CardDirector cardDirector;
     public EntityCostDirector entityCostManager;
     public EntityEnergyDirector entityGainManager;
+    public AudioClip mouseOverClip;
 
     private PlayerMoveAdvisor moveAdvisor;
     private PlayerMoveController moveController;
     private Color32 highlightNoAction = new Color32(192, 2, 156, 128); // #C0029C
     private Color32 canMoveColor = new Color32(156, 192, 2, 255); // #9CC002
     private TileEntityContainer entityContainer;
+    private AudioSource audioSource;
+    private bool mouseOverClipPlayed = false;
 
     public void Start()
     {
         entityContainer = GetComponent<TileEntityContainer>();
+        audioSource = GetComponent<AudioSource>();
         cardDirector = GameObject.Find("CardDirector").GetComponent<CardDirector>();
         var board = GameObject.Find("Board");
         entityCostManager = board.GetComponent<EntityCostDirector>();
@@ -35,6 +39,11 @@ public class TileInteractManager : MonoBehaviour
         var entity = entityContainer.GetBaseTileEntity();
         string description = "Type: " + entity.type + "\nCost: " + entityCostManager.GetCostForTile(entity.type) + "\nGain: " + entityGainManager.GetEnergyGainForTile(entity.type);
         cardDirector.ShowCardAtWorldPosition(transform.position, entity.name, description);
+        if (!mouseOverClipPlayed)
+        {
+            audioSource.PlayOneShot(mouseOverClip);
+            mouseOverClipPlayed = true;
+        }
     }
 
     public void OnMouseExit()
@@ -42,6 +51,7 @@ public class TileInteractManager : MonoBehaviour
         glowObject.SetActive(false);
         glowObject.GetComponent<SpriteRenderer>().color = highlightNoAction;
         cardDirector.HideCard();
+        mouseOverClipPlayed = false;
     }
 
     public void OnMouseDown()
