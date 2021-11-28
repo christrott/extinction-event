@@ -36,19 +36,14 @@ public class PlayerMoveController : MonoBehaviour
             var newTile = boardManager.GetTile(newPosition);
             var newTileEntityTypes = newTile.GetComponent<TileEntityContainer>().GetTileTypes();
             energyManager.DeductMoveCost(newTileEntityTypes);
+            playerPos = newPosition;
             var currentTileContainer = currentTile.GetComponent<TileEntityContainer>();
-            TileEntity playerEntity = getPlayerEntityFromTile(currentTileContainer);
+            TileEntity playerEntity = currentTileContainer.GetPlayerTileEntity();
             currentTile.GetComponent<TileEntityContainer>().RemoveEntity(playerEntity);
             var destinationType = newTile.GetComponent<TileEntityContainer>();
             newTile.GetComponent<TileEntityContainer>().AddEntity(playerEntity);
-            playerPos = newPosition;
             voidController.SpreadVoid();
         }
-    }
-
-    private TileEntity getPlayerEntityFromTile(TileEntityContainer tile)
-    {
-        return tile.GetTileEntityByType(TileTypes.PlayerTier1);
     }
 
     private bool playerIsInWinPosition(Vector2 position)

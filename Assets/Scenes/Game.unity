@@ -1258,6 +1258,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e372356c0b46d54d9adfe9b78e08674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1951025144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951025137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599997c52dbb0cb4cac1281ff5c3b95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTier1:
+    type: 6
+    name: Player
+    sprite: {fileID: 21300000, guid: e869fb5912ea77e408748aaad1d4b7f0, type: 3}
+  playerTier2:
+    type: 7
+    name: Player
+    sprite: {fileID: 21300000, guid: d39e79db7992ed349a9ac0122f521281, type: 3}
+  playerTier3:
+    type: 8
+    name: Player
+    sprite: {fileID: 21300000, guid: 9901dee807ec9e641abf4bb22ea9669b, type: 3}
 --- !u!1 &2069353491
 GameObject:
   m_ObjectHideFlags: 0

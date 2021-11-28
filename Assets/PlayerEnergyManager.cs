@@ -5,17 +5,27 @@ using UnityEngine;
 
 public class PlayerEnergyManager : MonoBehaviour
 {
+    private static int TIER_1_MAX = 100;
+    private static int TIER_2_MAX = 300;
+    private static int TIER_3_MAX = 700;
+
     public int energy = 20;
-    public int maxEnergy = 100;
+    public int maxEnergy = TIER_1_MAX;
     public GameObject energyProgressBar;
     public GameObject gameOverPanel;
-    EntityCostDirector costManager;
-    EntityEnergyDirector gainManager;
+    private EntityCostDirector costManager;
+    private EntityEnergyDirector gainManager;
+    private PlayerTierManager tierManager;
+    private PlayerMoveController moveController;
+    private BoardManager boardManager;
 
     private void Start()
     {
         costManager = GetComponent<EntityCostDirector>();
         gainManager = GetComponent<EntityEnergyDirector>();
+        tierManager = GetComponent<PlayerTierManager>();
+        moveController = GetComponent<PlayerMoveController>();
+        boardManager = GetComponent<BoardManager>();
         UpdateEnergy(energy);
     }
 
@@ -35,6 +45,31 @@ public class PlayerEnergyManager : MonoBehaviour
         Debug.Log("AddEnergyFromFood(" + foodType + ")");
         var energyGain = gainManager.GetEnergyGainForTile(foodType);
         UpdateEnergy(energy + energyGain);
+
+        if (energy >= maxEnergy)
+        {
+            TierUp();
+        }
+    }
+
+    public void TierUp()
+    {
+        if (maxEnergy == TIER_1_MAX)
+        {
+            maxEnergy = TIER_2_MAX;
+            var playerTile = boardManager.GetTile(moveController.playerPos);
+            var entityContainer = playerTile.GetComponent<TileEntityContainer>();
+            var entity = entityContainer.GetPlayerTileEntity();
+            entityContainer.ReplaceEntity(entity, tierManager.playerTier2);
+        } else
+        {
+            maxEnergy = TIER_3_MAX;
+            var playerTile = boardManager.GetTile(moveController.playerPos);
+            var entityContainer = playerTile.GetComponent<TileEntityContainer>();
+            var entity = entityContainer.GetPlayerTileEntity();
+            entityContainer.ReplaceEntity(entity, tierManager.playerTier3);
+        }
+        UpdateEnergy(energy);
     }
 
     public int GetTileEnergyCost(List<TileTypes> destinationTileTypes)

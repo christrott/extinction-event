@@ -8,7 +8,7 @@ public class BoardManager : MonoBehaviour
 
     public GameObject GetTile(Vector2 position)
     {
-        //Debug.Log("GetTile(" + position.x + "," + position.y + ")");
+        Debug.Log("GetTile(" + position.x + "," + position.y + ")");
         return tileSet[position.x + "," + position.y];
     }
 }

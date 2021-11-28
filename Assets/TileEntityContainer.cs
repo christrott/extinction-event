@@ -45,6 +45,13 @@ public class TileEntityContainer : MonoBehaviour
         }
     }
 
+    public void ReplaceEntity(TileEntity existingEntity, TileEntity newEntity)
+    {
+        int index = tileEntities.FindIndex(entity => entity.type == existingEntity.type);
+        Debug.Log("Found Existing Entity at index " + index);
+        tileEntities[index] = newEntity;
+    }
+
     public TileEntity GetBaseTileEntity()
     {
         return tileEntities[0];
@@ -74,6 +81,11 @@ public class TileEntityContainer : MonoBehaviour
         return tileEntities.Find((entity) => entity.type == type);
     }
 
+    public TileEntity GetPlayerTileEntity()
+    {
+        return tileEntities.Find((entity) => TileType.IsPlayerType(entity.type));
+    }
+
     public TileEntity GetTileEntityExcluding(TileTypes excludeType)
     {
         return tileEntities.Find((entity) => entity.type != excludeType);
@@ -81,25 +93,24 @@ public class TileEntityContainer : MonoBehaviour
 
     private void ResolveInteraction(TileEntity entity1, TileEntity entity2)
     {
-        //Debug.Log("ResolveInteraction " + entity1.name + ", " + entity2.name);
         TileTypes dominantType = priorityManager.GetTileTypePriority(entity1.type, entity2.type);
 
-        if (dominantType == TileTypes.PlayerTier1)
+        if (TileType.IsPlayerType(dominantType))
         {
-            var consumedEntity = (entity1.type == TileTypes.PlayerTier1) ? entity2 : entity1;
+            var consumedEntity = (TileType.IsPlayerType(entity1.type)) ? entity2 : entity1;
             playerEnergyManager.AddEnergyFromFood(consumedEntity.type);
         }
 
         if (entity1.type == dominantType)
         {
-            if (entity2.type != TileTypes.PlayerTier1)
+            if (!TileType.IsPlayerType(entity2.type))
             {
                 RemoveEntity(entity2);
             }
             UpdateEntity(entity1);
         } else
         {
-            if (entity1.type != TileTypes.PlayerTier1)
+            if (!TileType.IsPlayerType(entity1.type))
             {
                 RemoveEntity(entity1);
             }

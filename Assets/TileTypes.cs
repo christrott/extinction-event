@@ -1,3 +1,4 @@
+using UnityEngine;
 
 public enum TileTypes
 {
@@ -15,3 +16,11 @@ public enum TileTypes
     Empty,
     Exit,
 };
+
+public struct TileType
+{
+    public static bool IsPlayerType(TileTypes type)
+    {
+        return (type == TileTypes.PlayerTier1 || type == TileTypes.PlayerTier2 || type == TileTypes.PlayerTier3);
+    }
+}

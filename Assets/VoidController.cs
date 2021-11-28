@@ -58,7 +58,6 @@ public class VoidController : MonoBehaviour
                 // Debug.Log("Check Position (" + position.x + "," + position.y + ")");
                 if (checkIfVoidFrontSurrounded(position))
                 {
-                    Debug.Log("Surrounded");
                     var surroundedTile = boardManager.GetTile(position);
                     surroundedTile.GetComponent<TileEntityContainer>().AddEntity(voidEntity);
                     DeregisterVoidFrontTile(surroundedTile);
