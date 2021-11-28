@@ -29,7 +29,7 @@ public class EntityPriorityManager : MonoBehaviour
         return activeRank <= subjectRank ? activeType : subjectType;
     }
 
-    private int GetTileTypeRankIndex(TileTypes type)
+    public int GetTileTypeRankIndex(TileTypes type)
     {
         return tileTypeRanking.FindIndex((tileType) => tileType == type);
     }

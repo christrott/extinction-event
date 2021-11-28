@@ -35,6 +35,7 @@ public class PlayerMoveController : MonoBehaviour
             var currentTile = boardManager.GetTile(playerPos);
             var newTile = boardManager.GetTile(newPosition);
             var newTileEntityTypes = newTile.GetComponent<TileEntityContainer>().GetTileTypes();
+            // If entity is not consumable
             energyManager.DeductMoveCost(newTileEntityTypes);
             playerPos = newPosition;
             var currentTileContainer = currentTile.GetComponent<TileEntityContainer>();

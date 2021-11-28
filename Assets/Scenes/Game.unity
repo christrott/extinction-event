@@ -1784,7 +1784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.data[1].name
@@ -1803,6 +1803,22 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
+      propertyPath: componentList.Array.data[3].name
+      value: Boxelder Bug
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
+      propertyPath: componentList.Array.data[3].type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
+      propertyPath: componentList.Array.data[4].name
+      value: Hummingbird
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
+      propertyPath: componentList.Array.data[4].type
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.data[1].sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3bccbf03c9dbadf4c940a70cfeb14ee3, type: 3}
@@ -1810,6 +1826,14 @@ PrefabInstance:
       propertyPath: componentList.Array.data[2].sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9222d2414b7472649baad9c9c46b8ff1, type: 3}
+    - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
+      propertyPath: componentList.Array.data[3].sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 47538d5704718aa4abe4772cd507588c, type: 3}
+    - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
+      propertyPath: componentList.Array.data[4].sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4947127818747274811, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: tileExitEntity.name
       value: Exit
