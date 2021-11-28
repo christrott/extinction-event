@@ -1833,7 +1833,7 @@ PrefabInstance:
     - target: {fileID: 4947127818747274810, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: componentList.Array.data[4].sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 06fab962b09533a49bc8530e75161972, type: 3}
     - target: {fileID: 4947127818747274811, guid: cb140b3846ba3934d8ec481a458c8c0e, type: 3}
       propertyPath: tileExitEntity.name
       value: Exit
