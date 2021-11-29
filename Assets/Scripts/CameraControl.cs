@@ -16,6 +16,7 @@ public class CameraControl : MonoBehaviour
 
     private Vector3 lastPos = Vector3.zero;
     private Vector2 mapDimensions;
+    private Vector2 panningMove;
 
     private void Start()
     {
@@ -39,18 +40,7 @@ public class CameraControl : MonoBehaviour
     {
         Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        // TODO Add scroll zoom
-        /*if (Input.mouseScrollDelta.y != 0.0f)
-        {
-            Debug.Log(Input.mouseScrollDelta.y);
-            Camera.main.orthographicSize *= scrollWheelSpeed * Input.mouseScrollDelta.y;
-            targetZoom -= Input.mouseScrollDelta.y * scrollWheelSpeed;
-            targetZoom = Mathf.Clamp(targetZoom, MAX_ZOOM, MIN_ZOOM);
-            float newSize = Mathf.MoveTowards(Camera.main.orthographicSize, targetZoom, scrollWheelSpeed * Time.deltaTime);
-            Camera.main.orthographicSize = newSize;
-        }*/
-
-        // TODO Add panning with arrow keys
+        updateArrowPanning();
 
         if (Input.GetMouseButton(2))
         {
@@ -71,5 +61,44 @@ public class CameraControl : MonoBehaviour
         BoardManager boardManager = GameObject.Find("Board").GetComponent<BoardManager>();
         var worldPosition = boardManager.GetTile(tilePosition).transform.position;
         UpdateTransform(-worldPosition);
+    }
+
+    private void updateArrowPanning()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            panningMove.x = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            panningMove.x = -1;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            panningMove.y = -1;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            panningMove.y = 1;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            panningMove.x = 0;
+        }
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            panningMove.x = 0;
+        }
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            panningMove.y = 0;
+        }
+        if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            panningMove.y = 0;
+        }
+
+        UpdateTransform(panningMove * arrowMoveSpeed * Time.deltaTime);
     }
 }
