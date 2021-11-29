@@ -81,6 +81,8 @@ public class VoidController : MonoBehaviour
         expandRandomVoidTile();
         yield return null;
         expandRandomVoidTile();
+        yield return null;
+        expandRandomVoidTile();
     }
 
     private void expandRandomVoidTile()

@@ -116,7 +116,7 @@ public class BoardGenerator : MonoBehaviour
         var largeEntity = tileComponents.componentList[4];
 
         int random = Random.Range(0, 100);
-        if (random <= 80)
+        if (random <= 70)
         {
             // Place tier appropriate entity
             switch(tier)
