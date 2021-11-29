@@ -18,6 +18,7 @@ public class EntityCostDirector : MonoBehaviour
         playerTierCosts.Add(TileTypes.SmallAnimal, 1);
         playerTierCosts.Add(TileTypes.MediumAnimal, 10);
         playerTierCosts.Add(TileTypes.LargeAnimal, 15);
+        playerTierCosts.Add(TileTypes.Exit, 700);
     }
 
     public int GetCostForTile(TileTypes tileType)

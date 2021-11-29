@@ -28,7 +28,7 @@ public class PlayerMoveController : MonoBehaviour
     {
         if (GetComponent<PlayerMoveAdvisor>().IsValidMovePosition(newPosition))
         {
-            if (playerIsInWinPosition(newPosition)) {
+            if (playerIsInWinPosition(newPosition) && energyManager.energy >= 700) {
                 gameWonModal.SetActive(true);
                 return;
             }
