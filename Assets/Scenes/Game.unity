@@ -1099,7 +1099,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 4457442624767508058, guid: d38e69ec50b718a4f8cfa2520eccf1ea, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0532df5ae56599c4ea78bb7f66c0e6fd, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1441,6 +1441,7 @@ MonoBehaviour:
   maxEnergy: 100
   energyProgressBar: {fileID: 629941624}
   gameOverPanel: {fileID: 1253764051}
+  tierUpSfx: {fileID: 8300000, guid: c044c528270131d438344db348f7ecd2, type: 3}
 --- !u!114 &1951025142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2153,7 +2154,7 @@ PrefabInstance:
     - target: {fileID: 8277247120458939727, guid: f7d95aec7d4f26e4b9ea58b4daf70f4f, type: 3}
       propertyPath: voidEntity.sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: fdcd8932124912d40a33457b9b2cb156, type: 3}
     - target: {fileID: 8277247120458939727, guid: f7d95aec7d4f26e4b9ea58b4daf70f4f, type: 3}
       propertyPath: voidFrontEntity.name
       value: Void Front

@@ -13,6 +13,8 @@ public class PlayerEnergyManager : MonoBehaviour
     public int maxEnergy = TIER_1_MAX;
     public GameObject energyProgressBar;
     public GameObject gameOverPanel;
+    public AudioClip tierUpSfx;
+
     private EntityCostDirector costManager;
     private EntityEnergyDirector gainManager;
     private PlayerTierManager tierManager;
@@ -61,6 +63,7 @@ public class PlayerEnergyManager : MonoBehaviour
         {
             maxEnergy = TIER_2_MAX;
             var playerTile = boardManager.GetTile(moveController.playerPos);
+            playerTile.GetComponent<AudioSource>().PlayOneShot(tierUpSfx);
             var entityContainer = playerTile.GetComponent<TileEntityContainer>();
             var entity = entityContainer.GetPlayerTileEntity();
             entityContainer.ReplaceEntity(entity, tierManager.playerTier2);
@@ -68,6 +71,7 @@ public class PlayerEnergyManager : MonoBehaviour
         {
             maxEnergy = TIER_3_MAX;
             var playerTile = boardManager.GetTile(moveController.playerPos);
+            playerTile.GetComponent<AudioSource>().PlayOneShot(tierUpSfx);
             var entityContainer = playerTile.GetComponent<TileEntityContainer>();
             var entity = entityContainer.GetPlayerTileEntity();
             entityContainer.ReplaceEntity(entity, tierManager.playerTier3);
