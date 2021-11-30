@@ -50,6 +50,7 @@ public class TileEntityContainer : MonoBehaviour
         int index = tileEntities.FindIndex(entity => entity.type == existingEntity.type);
         Debug.Log("Found Existing Entity at index " + index);
         tileEntities[index] = newEntity;
+        UpdateEntity(newEntity);
     }
 
     public TileEntity GetBaseTileEntity()

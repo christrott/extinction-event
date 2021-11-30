@@ -1401,6 +1401,7 @@ MonoBehaviour:
   playerPos: {x: 0, y: 0}
   gameWonModal: {fileID: 1435727962}
   voidController: {fileID: 1675975991}
+  moveSfx: {fileID: 8300000, guid: 435b3eabb9219aa4a8b2dfee7f9d7272, type: 3}
 --- !u!114 &1951025139
 MonoBehaviour:
   m_ObjectHideFlags: 0

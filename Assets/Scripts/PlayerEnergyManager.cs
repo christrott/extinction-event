@@ -67,7 +67,8 @@ public class PlayerEnergyManager : MonoBehaviour
             var entityContainer = playerTile.GetComponent<TileEntityContainer>();
             var entity = entityContainer.GetPlayerTileEntity();
             entityContainer.ReplaceEntity(entity, tierManager.playerTier2);
-        } else
+        }
+        else
         {
             maxEnergy = TIER_3_MAX;
             var playerTile = boardManager.GetTile(moveController.playerPos);

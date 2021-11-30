@@ -7,6 +7,7 @@ public class PlayerMoveController : MonoBehaviour
     public Vector2 playerPos;
     public GameObject gameWonModal;
     public VoidController voidController;
+    public AudioClip moveSfx;
 
     private BoardManager boardManager;
     private PlayerEnergyManager energyManager;
@@ -43,6 +44,7 @@ public class PlayerMoveController : MonoBehaviour
             currentTile.GetComponent<TileEntityContainer>().RemoveEntity(playerEntity);
             var destinationType = newTile.GetComponent<TileEntityContainer>();
             newTile.GetComponent<TileEntityContainer>().AddEntity(playerEntity);
+            newTile.GetComponent<AudioSource>().PlayOneShot(moveSfx, 0.2f);
             voidController.SpreadVoid();
         }
     }
