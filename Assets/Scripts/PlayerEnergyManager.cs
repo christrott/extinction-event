@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerEnergyManager : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class PlayerEnergyManager : MonoBehaviour
     public GameObject energyProgressBar;
     public GameObject gameOverPanel;
     public AudioClip tierUpSfx;
+    public PreyPanel preyPanel;
 
     private EntityCostDirector costManager;
     private EntityEnergyDirector gainManager;
@@ -67,15 +68,20 @@ public class PlayerEnergyManager : MonoBehaviour
             var entityContainer = playerTile.GetComponent<TileEntityContainer>();
             var entity = entityContainer.GetPlayerTileEntity();
             entityContainer.ReplaceEntity(entity, tierManager.playerTier2);
+            preyPanel.UpdatePreyTier(TileTypes.PlayerTier2);
         }
         else
         {
             maxEnergy = TIER_3_MAX;
             var playerTile = boardManager.GetTile(moveController.playerPos);
-            playerTile.GetComponent<AudioSource>().PlayOneShot(tierUpSfx);
             var entityContainer = playerTile.GetComponent<TileEntityContainer>();
             var entity = entityContainer.GetPlayerTileEntity();
-            entityContainer.ReplaceEntity(entity, tierManager.playerTier3);
+            if (entity.type != TileTypes.PlayerTier3)
+            {
+                entityContainer.ReplaceEntity(entity, tierManager.playerTier3);
+                playerTile.GetComponent<AudioSource>().PlayOneShot(tierUpSfx);
+                preyPanel.UpdatePreyTier(TileTypes.PlayerTier3);
+            }
         }
         UpdateEnergy(energy);
     }
@@ -118,6 +124,7 @@ public class PlayerEnergyManager : MonoBehaviour
         energy = newEnergy;
         float energyFillRatio = (float)energy / (float)maxEnergy;
         energyProgressBar.GetComponent<ProgressBarController>().SetProgress(energyFillRatio);
+        energyProgressBar.GetComponentInChildren<Text>().text = energy.ToString();
     }
 
     private void GameOver()
